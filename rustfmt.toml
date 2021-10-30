@@ -1,0 +1,4 @@
+hard_tabs = true
+tab_spaces = 2
+edition = "2021"
+max_width = 80
