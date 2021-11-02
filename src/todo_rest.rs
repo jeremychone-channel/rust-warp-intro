@@ -6,5 +6,5 @@ pub fn todos_filter(
 	warp::path("todos")
 		.and(warp::get())
 		.and(warp::path::end())
-		.map(|| "will get todos")
+		.and_then(|| async { Ok::<&str, warp::Rejection>("will get todos") })
 }
