@@ -1,6 +1,8 @@
 mod security;
 mod todo_rest;
 
+use std::{convert::Infallible, sync::Arc};
+
 use crate::todo_rest::todos_filter;
 use warp::Filter;
 
@@ -23,4 +25,12 @@ async fn main() {
 
 	println!("start web-server");
 	warp::serve(routes).run(([127, 0, 0, 1], 8080)).await;
+}
+
+pub struct DbPool {}
+
+pub fn with_db_pool(
+	db_pool: Arc<DbPool>,
+) -> impl Filter<Extract = (Arc<DbPool>,), Error = Infallible> + Clone {
+	warp::any().map(move || db_pool.clone())
 }
