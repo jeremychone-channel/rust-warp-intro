@@ -1,10 +1,4 @@
 ## Quick Dev
 
-POST http://127.0.0.1:8080/todos/
-X-Auth-Token: 123.exp.DDDsignature
-content-type: application/json
-
-{
-  "id": 555,
-  "title": "todo FAKE"
-}
+GET http://127.0.0.1:8080/todos/555
+X-Auth-Token: 123.exp.signature
