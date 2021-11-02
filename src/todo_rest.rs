@@ -6,5 +6,9 @@ pub fn todos_filter(
 	warp::path("todos")
 		.and(warp::get())
 		.and(warp::path::end())
-		.and_then(|| async { Ok::<&str, warp::Rejection>("will get todos") })
+		.and_then(todo_list)
+}
+
+async fn todo_list() -> Result<String, warp::Rejection> {
+	Ok("Will list todos".to_string())
 }
