@@ -1,3 +1,4 @@
+use crate::security::check_auth;
 use serde_json::{json, Value};
 use warp::{reply::Json, Filter};
 
@@ -8,15 +9,18 @@ pub fn todos_filter(
 	let list = todos_base
 		.and(warp::get())
 		.and(warp::path::end())
+		.and(check_auth().untuple_one())
 		.and_then(todo_list);
 
 	let get = todos_base
 		.and(warp::get())
+		.and(check_auth().untuple_one())
 		.and(warp::path::param()) // e.g., /todos/123
 		.and_then(todo_get);
 
 	let create = todos_base
 		.and(warp::post())
+		.and(check_auth().untuple_one())
 		.and(warp::body::json())
 		.and_then(todo_create);
 
