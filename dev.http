@@ -1,3 +1,9 @@
 ## Quick Dev
 
-GET http://127.0.0.1:8080/todos/123
+POST http://127.0.0.1:8080/todos/
+content-type: application/json
+
+{
+  "id": 555,
+  "title": "todo FAKE"
+}
