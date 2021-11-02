@@ -9,9 +9,14 @@ pub fn check_auth(
 		.and_then(|xauth: String| async move {
 			// Check auth
 			if !xauth.ends_with(".exp.signature") {
-				panic!("FIX ME - SHOULD NOT PANIC");
+				return Err(warp::reject::custom(FailAuth));
 			}
 
 			Ok::<(), warp::Rejection>(())
 		})
 }
+
+#[derive(Debug)]
+pub struct FailAuth;
+
+impl warp::reject::Reject for FailAuth {}
