@@ -1,5 +1,7 @@
 use warp::Filter;
 
+const WEB_FOLDER: &str = "web-folder/";
+
 #[tokio::main]
 async fn main() {
 	let hello_world = warp::path::end()
@@ -8,7 +10,9 @@ async fn main() {
 
 	let hi = warp::path("hi").and(warp::get()).map(|| "Hello from hi");
 
-	let routes = hello_world.or(hi);
+	let content = warp::fs::dir(WEB_FOLDER);
+
+	let routes = hello_world.or(hi).or(content);
 
 	println!("start web-server");
 	warp::serve(routes).run(([127, 0, 0, 1], 8080)).await;
