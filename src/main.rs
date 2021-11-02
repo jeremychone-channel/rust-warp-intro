@@ -10,9 +10,11 @@ const WEB_FOLDER: &str = "web-folder/";
 
 #[tokio::main]
 async fn main() {
+	let db_pool = Arc::new(DbPool {});
+
 	// APIs
 	let hi = warp::path("hi").and(warp::get()).map(|| "Hello from hi");
-	let apis = hi.or(todos_filter());
+	let apis = hi.or(todos_filter(db_pool.clone()));
 
 	// Static Content
 	let content = warp::fs::dir(WEB_FOLDER);
