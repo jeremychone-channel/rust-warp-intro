@@ -4,7 +4,7 @@ use warp::Filter;
 async fn main() {
 	let hello_world = warp::path::end().map(|| "Hello world from root!");
 
-	let hi = warp::path("hi").map(|| "Hello from hi");
+	let hi = warp::path("hi").and(warp::get()).map(|| "Hello from hi");
 
 	let routes = hello_world.or(hi);
 
